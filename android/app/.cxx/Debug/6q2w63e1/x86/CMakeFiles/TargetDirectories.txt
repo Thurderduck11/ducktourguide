@@ -1,0 +1,2 @@
+C:/Users/dydy1/studioprojects/ducktourguide/android/app/.cxx/Debug/6q2w63e1/x86/CMakeFiles/edit_cache.dir
+C:/Users/dydy1/studioprojects/ducktourguide/android/app/.cxx/Debug/6q2w63e1/x86/CMakeFiles/rebuild_cache.dir
