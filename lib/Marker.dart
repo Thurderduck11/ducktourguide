@@ -98,8 +98,21 @@ class MarkerManager {
   }
 
   Future<void> playAudioDescription(String name, String description) async {
-    String text = "在你的附近發現一個景點，$name，以下是他的介紹，$description";
-    await flutterTts.speak(text);
+    try {
+      // 确保 TTS 已初始化
+      // Note: isLanguageAvailable() is not a direct check for initialization, but speaking will fail if not ready.
+      // A more robust check might involve initializing TTS explicitly if not already.
+      // For now, we rely on the speak method's internal handling or prior initialization.
+      
+      // You might want to set language here if not set globally or on init
+      // await flutterTts.setLanguage("zh-TW"); 
+      
+      String text = "在你的附近發現一個景點，$name，以下是他的介紹，$description";
+      await flutterTts.speak(text);
+    } catch (e) {
+      print("TTS 播放失败: $e");
+      // Consider adding a user-facing message here, e.g., a SnackBar
+    }
   }
 
   void scheduleDailyReset(Function setState) {

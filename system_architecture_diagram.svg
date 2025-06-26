@@ -1,0 +1,155 @@
+<svg width="1400" height="1200" viewBox="0 0 1400 1200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .layer-box {
+      fill: #e0e0e0;
+      stroke: #333;
+      stroke-width: 2;
+      rx: 10;
+      ry: 10;
+    }
+    .layer-text {
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      text-anchor: middle;
+      fill: #333;
+    }
+    .module-box {
+      fill: #f0f0f0;
+      stroke: #666;
+      stroke-width: 1;
+      rx: 5;
+      ry: 5;
+    }
+    .module-text {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      text-anchor: middle;
+      fill: #555;
+    }
+    .arrow {
+      stroke: #666;
+      stroke-width: 2;
+      fill: none;
+      marker-end: url(#arrowhead);
+    }
+    .data-flow-text {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      fill: #888;
+      text-anchor: middle;
+    }
+    .external-service-box {
+      fill: #d0e0f0;
+      stroke: #369;
+      stroke-width: 2;
+      rx: 10;
+      ry: 10;
+    }
+    .external-service-text {
+      font-family: Arial, sans-serif;
+      font-size: 22px;
+      font-weight: bold;
+      text-anchor: middle;
+      fill: #369;
+    }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+  </defs>
+
+  <!-- Presentation Layer -->
+  <rect class="layer-box" x="50" y="50" width="300" height="250" />
+  <text class="layer-text" x="200" y="90">展示層 (Presentation Layer)</text>
+  <rect class="module-box" x="75" y="120" width="250" height="40" />
+  <text class="module-text" x="200" y="145">SplashScreen</text>
+  <rect class="module-box" x="75" y="170" width="250" height="40" />
+  <text class="module-text" x="200" y="195">Login/RegisterScreen</text>
+  <rect class="module-box" x="75" y="220" width="250" height="40" />
+  <text class="module-text" x="200" y="245">MapScreen</text>
+  <rect class="module-box" x="75" y="270" width="250" height="40" />
+  <text class="module-text" x="200" y="295">TripPlanningScreen</text>
+
+  <!-- Business Logic Layer -->
+  <rect class="layer-box" x="450" y="50" width="400" height="450" />
+  <text class="layer-text" x="650" y="90">業務邏輯層 (Business Logic Layer)</text>
+  <rect class="module-box" x="475" y="120" width="350" height="40" />
+  <text class="module-text" x="650" y="145">AuthService (用戶認證)</text>
+  <rect class="module-box" x="475" y="170" width="350" height="40" />
+  <text class="module-text" x="650" y="195">LocationService (位置服務)</text>
+  <rect class="module-box" x="475" y="220" width="350" height="40" />
+  <text class="module-text" x="650" y="245">AttractionService (景點數據)</text>
+  <rect class="module-box" x="475" y="270" width="350" height="40" />
+  <text class="module-text" x="650" y="295">UserDataService (用戶數據)</text>
+  <rect class="module-box" x="475" y="320" width="350" height="40" />
+  <text class="module-text" x="650" y="345">TripStatusManager (行程狀態管理)</text>
+  <rect class="module-box" x="475" y="370" width="350" height="40" />
+  <text class="module-text" x="650" y="395">BackgroundService (後台任務)</text>
+  <rect class="module-box" x="475" y="420" width="350" height="40" />
+  <text class="module-text" x="650" y="445">NotificationService (通知服務)</text>
+  <rect class="module-box" x="475" y="470" width="350" height="40" />
+  <text class="module-text" x="650" y="495">TripTimerService (行程計時)</text>
+
+  <!-- Data Layer -->
+  <rect class="layer-box" x="450" y="550" width="400" height="200" />
+  <text class="layer-text" x="650" y="590">數據層 (Data Layer)</text>
+  <rect class="module-box" x="475" y="620" width="350" height="40" />
+  <text class="module-text" x="650" y="645">Models (Attraction, TripPlan, User)</text>
+  <rect class="module-box" x="475" y="670" width="350" height="40" />
+  <text class="module-text" x="650" y="695">Database Configuration</text>
+  <rect class="module-box" x="475" y="720" width="350" height="40" />
+  <text class="module-text" x="650" y="745">Local Storage (Shared Preferences)</text>
+
+  <!-- Utility Layer -->
+  <rect class="layer-box" x="50" y="350" width="300" height="200" />
+  <text class="layer-text" x="200" y="390">工具層 (Utility Layer)</text>
+  <rect class="module-box" x="75" y="420" width="250" height="40" />
+  <text class="module-text" x="200" y="445">MarkerManager</text>
+  <rect class="module-box" x="75" y="470" width="250" height="40" />
+  <text class="module-text" x="200" y="495">TTS (Text-to-Speech)</text>
+  <rect class="module-box" x="75" y="520" width="250" height="40" />
+  <text class="module-text" x="200" y="545">Upload Tools</text>
+
+  <!-- External Services -->
+  <rect class="external-service-box" x="950" y="50" width="350" height="250" />
+  <text class="external-service-text" x="1125" y="90">外部服務 (External Services)</text>
+  <rect class="module-box" x="975" y="120" width="300" height="40" />
+  <text class="module-text" x="1125" y="145">Appwrite Backend</text>
+  <rect class="module-box" x="975" y="170" width="300" height="40" />
+  <text class="module-text" x="1125" y="195">Geolocator (GPS)</text>
+  <rect class="module-box" x="975" y="220" width="300" height="40" />
+  <text class="module-text" x="1125" y="245">Flutter Map / OpenStreetMap</text>
+  <rect class="module-box" x="975" y="270" width="300" height="40" />
+  <text class="module-text" x="1125" y="295">TTS Engine</text>
+
+  <!-- Data Flows -->
+  <!-- Presentation to Business Logic -->
+  <path class="arrow" d="M350 180 H450" />
+  <text class="data-flow-text" x="400" y="175">用戶操作</text>
+  <path class="arrow" d="M450 210 H350" />
+  <text class="data-flow-text" x="400" y="215">數據/結果</text>
+
+  <!-- Business Logic to Data Layer -->
+  <path class="arrow" d="M650 500 V550" />
+  <text class="data-flow-text" x="660" y="525">數據讀寫</text>
+
+  <!-- Business Logic to External Services -->
+  <path class="arrow" d="M850 180 H950" />
+  <text class="data-flow-text" x="900" y="175">API 請求</text>
+  <path class="arrow" d="M950 210 H850" />
+  <text class="data-flow-text" x="900" y="215">數據響應</text>
+
+  <!-- Utility Layer to Business Logic -->
+  <path class="arrow" d="M350 450 H450" />
+  <text class="data-flow-text" x="400" y="445">工具調用</text>
+  <path class="arrow" d="M450 480 H350" />
+  <text class="data-flow-text" x="400" y="485">結果返回</text>
+
+  <!-- Background Service specific flows -->
+  <path class="arrow" d="M850 395 H950" />
+  <text class="data-flow-text" x="900" y="390">後台任務</text>
+
+</svg>

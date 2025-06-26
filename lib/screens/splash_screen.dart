@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import '../services/location_service.dart';
+import '../services/auth_service.dart';
 import 'map_screen.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -63,21 +65,44 @@ class _SplashScreenState extends State<SplashScreen> {
       
       setState(() {
         _statusMessage = "🎯 GPS 成功！\n緯度: ${position.latitude}, 經度: ${position.longitude}";
+      });
+      
+      // 檢查用戶是否已登入
+      setState(() => _statusMessage = "檢查登入狀態...");
+      bool isLoggedIn = false;
+      try {
+        final user = await AuthService.getCurrentUser();
+        isLoggedIn = user != null;
+        if (isLoggedIn) {
+          print('用戶已登入，ID: ${user.$id}');
+        }
+      } catch (e) {
+        print('檢查登入狀態時出錯: $e');
+        // 如果出錯，假設用戶未登入
+        isLoggedIn = false;
+      }
+      
+      setState(() {
+        _statusMessage = isLoggedIn ? "已登入，正在進入應用..." : "未登入，請先登入...";
         _isLoading = false;
       });
       
-      // 導航到地圖頁面
+      // 導航到適當的頁面
       Future.delayed(const Duration(seconds: 2), () {
         if (mounted) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => MapScreen(initialPosition: position)),
+            MaterialPageRoute(
+              builder: (context) => isLoggedIn
+                  ? MapScreen(initialPosition: position)
+                  : LoginScreen(initialPosition: position),
+            ),
           );
         }
       });
     } catch (e) {
       setState(() {
-        _statusMessage = "❌ 無法獲取 GPS 位置：$e";
+        _statusMessage = "❌ 初始化失敗：$e";
         _hasError = true;
         _isLoading = false;
       });
@@ -112,7 +137,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: _hasError ? Colors.red : Colors.black87,
                   ),
                 ),
-                if (_hasError) ...[
+                if (_hasError) ...[  
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {

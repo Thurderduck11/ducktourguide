@@ -3,7 +3,8 @@ import 'package:appwrite/appwrite.dart';
 // 創建 Appwrite 客戶端
 final client = Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
-    .setProject('67c37669001b422e83e6'); // 請替換為您的實際專案ID
+    .setProject('67c37669001b422e83e6') // 請替換為您的實際專案ID
+    .setSelfSigned(status: true); // 添加這一行
 
 // 創建數據庫實例
 final database = Databases(client);

@@ -16,19 +16,33 @@ Future<List<Map<String, String>>> readExcelFile(String assetPath, {String? sheet
         : excel.tables[excel.tables.keys.first];
 
     if (sheet != null) {
+      // 打印標題行以確認列的順序
+      if (sheet.rows.isNotEmpty) {
+        print('Excel 標題行: ${sheet.rows[0].map((cell) => cell?.value).toList()}');
+      }
+      
       for (var row in sheet.rows.skip(1)) {
+        // 確保索引與您的 Excel 文件結構匹配
         var location = {
-          'Name': row[1]?.value?.toString() ?? '',
-          'Address': row[2]?.value?.toString() ?? '',
-          'longitude': row[4]?.value?.toString() ?? '',
+          'Name': row[0]?.value?.toString() ?? '',  // 修改索引為 0
+          'Address': row[1]?.value?.toString() ?? '', // 修改索引為 1
+          'Description': row[4]?.value?.toString() ?? '', // 添加描述字段
           'latitude': row[3]?.value?.toString() ?? '',
-          'Description': row[5]?.value?.toString() ?? '',
+          'longitude': row[2]?.value?.toString() ?? '',
         };
-        locations.add(location);
-        print('讀取到的資料: $location');
+        print(location);
+        // 檢查必要字段是否存在
+        if (location['Name']!.isNotEmpty && 
+            location['latitude']!.isNotEmpty && 
+            location['longitude']!.isNotEmpty) {
+          locations.add(location);
+          print('讀取到的資料: $location');
+        } else {
+          print('跳過不完整的數據: $location');
+        }
       }
     }
-    print('讀取 Excel 成功');
+    print('讀取 Excel 成功，共 ${locations.length} 條記錄');
     return locations;
   } catch (e) {
     print('讀取 Excel 失敗：$e');
@@ -36,15 +50,19 @@ Future<List<Map<String, String>>> readExcelFile(String assetPath, {String? sheet
   }
 }
 
-Future<String?> uploadImageToAppwrite(String assetPath) async {
+Future<String?> uploadImageToAppwrite(String assetPath, String fileName) async {
   try {
+    print('嘗試加載圖片: $assetPath');
     ByteData byteData = await rootBundle.load(assetPath);
     Uint8List imageBytes = byteData.buffer.asUint8List();
-
+    
+    print('圖片加載成功，大小: ${imageBytes.length} 字節');
+    
+    // 使用景點名稱作為文件名，確保唯一性
     final response = await storage.createFile(
       bucketId: bucketId,
       fileId: ID.unique(),
-      file: InputFile.fromBytes(bytes: imageBytes, filename: "image.jpg"),
+      file: InputFile.fromBytes(bytes: imageBytes, filename: "$fileName.png"),
     );
 
     return "https://cloud.appwrite.io/v1/storage/buckets/$bucketId/files/${response.$id}/view?project=$projectId";
@@ -70,8 +88,9 @@ Future<void> processExcelAndUpload(String excelPath, String imageFolderPath) asy
       continue;
     }
 
-    String imagePath = "$imageFolderPath/$name.png"; // 假設圖片命名與景點名稱相同
-    String? imageUrl = await uploadImageToAppwrite(imagePath);
+    // 修改調用方式
+    String imagePath = "$imageFolderPath/$name.png";
+    String? imageUrl = await uploadImageToAppwrite(imagePath, name);
 
     if (imageUrl == null) {
       print("圖片 $imagePath 上傳失敗，跳過此景點");

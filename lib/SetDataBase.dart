@@ -1,5 +1,6 @@
 // lib/SetDataBase.dart
 import 'package:appwrite/appwrite.dart';
+import 'config/database.dart' as db_config;
 
 // Appwrite 設定
 const String projectId = "67c37669001b422e83e6";
@@ -8,11 +9,11 @@ const String apiKey = "standard_0a0dcb13fd66a35f6a8b5d718c3125e051cf6cc090ec96c1
 const String bucketId = "67c4efcb0000f7348f23";
 const String databaseId = "67c37890000902e1e89b";
 const String collectionId = "67c378f40032f3b1b9df";
+const String userTripsCollectionId = "683cbd67002de44b0dda";
+const String usersCollectionId = "683d664a00080dfcc1b8";
 
-Client client = Client()
-  ..setEndpoint(apiEndpoint)
-  ..setProject(projectId)
-  ..setSelfSigned(status: true);
+// 使用 config/database.dart 中的客戶端
+Client client = db_config.client;
 
 Databases database = Databases(client);
 Storage storage = Storage(client);
